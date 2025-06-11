@@ -29,6 +29,17 @@ checksum = "512761e0bb2578dd7380c6baaa0f4ce03e84f95e960231d1dec8bf4d7d6e2627"
 
 [[package]]
 name = "ahash"
+version = "0.7.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "891477e0c6a8957309ee5c45a6368af3ae14bb510732d2684ffa19af310920f9"
+dependencies = [
+ "getrandom 0.2.15",
+ "once_cell",
+ "version_check",
+]
+
+[[package]]
+name = "ahash"
 version = "0.8.11"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e89da841a80418a9b391ebaea17f5c112ffaaa96f621d2c285b5174da76b9011"
@@ -1052,6 +1063,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "cidr"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bd1b64030216239a2e7c364b13cd96a2097ebf0dfe5025f2dedee14a23f2ab60"
+
+[[package]]
 name = "clap"
 version = "3.2.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1575,6 +1592,7 @@ dependencies = [
  "bb8-postgres",
  "bytes",
  "chrono",
+ "cidr",
  "colored",
  "cookie",
  "duct",
@@ -2044,6 +2062,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "getrandom"
+version = "0.3.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "26145e563e54f2cadc477553f1ec5ee650b00862f0a58bcd12cbdc5f0ea2d2f4"
+dependencies = [
+ "cfg-if",
+ "libc",
+ "r-efi",
+ "wasi 0.14.2+wasi-0.2.4",
+]
+
+[[package]]
 name = "gimli"
 version = "0.31.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2301,6 +2331,9 @@ name = "hashbrown"
 version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
+dependencies = [
+ "ahash 0.7.8",
+]
 
 [[package]]
 name = "hashbrown"
@@ -2992,7 +3025,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fc2f4eb4bc735547cfed7c0a4922cbd04a4655978c09b54f1f7b228750664c34"
 dependencies = [
  "cfg-if",
- "windows-targets 0.52.6",
+ "windows-targets 0.48.5",
 ]
 
 [[package]]
@@ -3755,7 +3788,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "35ee62f28526d8d484621e77f8d6a1807f1bd07558a06ab5a204b4834d6be056"
 dependencies = [
- "ahash",
+ "ahash 0.8.11",
  "async-trait",
  "blake2",
  "bytes",
@@ -3790,7 +3823,7 @@ version = "0.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d123320b69bd06e897fc16bd1dde962a7b488c4d2ae825683fbca0198fad8669"
 dependencies = [
- "ahash",
+ "ahash 0.8.11",
  "async-trait",
  "brotli",
  "bytes",
@@ -3894,7 +3927,7 @@ dependencies = [
  "pingora-http",
  "pingora-ketama",
  "pingora-runtime",
- "rand 0.8.5",
+ "rand 0.4.6",
  "tokio",
 ]
 
@@ -3905,9 +3938,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "cb50f65f06c4b81ccb3edcceaa54bb9439608506b0b3b8c048798169a64aad8e"
 dependencies = [
  "arrayvec",
- "hashbrown 0.15.2",
+ "hashbrown 0.12.3",
  "parking_lot",
- "rand 0.8.5",
+ "rand 0.4.6",
 ]
 
 [[package]]
@@ -4050,10 +4083,10 @@ dependencies = [
 
 [[package]]
 name = "postgres-protocol"
-version = "0.6.6"
-source = "git+https://github.com/encoredev/rust-postgres?branch=encore-patches#eaf1bb1158e007b0ad873794a58284d5e172a1bd"
+version = "0.6.8"
+source = "git+https://github.com/encoredev/rust-postgres?branch=encore-patches-sync#e71577eea1d14769a3021b6dd214448e3de3ffb6"
 dependencies = [
- "base64 0.21.7",
+ "base64 0.22.1",
  "byteorder",
  "bytes",
  "fallible-iterator",
@@ -4061,19 +4094,20 @@ dependencies = [
  "log",
  "md-5",
  "memchr",
- "rand 0.8.5",
+ "rand 0.9.1",
  "sha2",
  "stringprep",
 ]
 
 [[package]]
 name = "postgres-types"
-version = "0.2.6"
-source = "git+https://github.com/encoredev/rust-postgres?branch=encore-patches#eaf1bb1158e007b0ad873794a58284d5e172a1bd"
+version = "0.2.9"
+source = "git+https://github.com/encoredev/rust-postgres?branch=encore-patches-sync#e71577eea1d14769a3021b6dd214448e3de3ffb6"
 dependencies = [
  "array-init",
  "bytes",
  "chrono",
+ "cidr",
  "fallible-iterator",
  "geo-types",
  "postgres-protocol",
@@ -4288,6 +4322,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "r-efi"
+version = "5.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "74765f6d916ee2faa39bc8e68e4f3ed8949b48cccdac59983d287a7cb71ce9c5"
+
+[[package]]
 name = "radix_fmt"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4331,6 +4371,16 @@ dependencies = [
 ]
 
 [[package]]
+name = "rand"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9fbfd9d094a40bf3ae768db9361049ace4c0e04a4fd6b359518bd7b73a73dd97"
+dependencies = [
+ "rand_chacha 0.9.0",
+ "rand_core 0.9.3",
+]
+
+[[package]]
 name = "rand_chacha"
 version = "0.2.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4348,6 +4398,16 @@ checksum = "e6c10a63a0fa32252be49d21e7709d4d4baf8d231c2dbce1eaa8141b9b127d88"
 dependencies = [
  "ppv-lite86",
  "rand_core 0.6.4",
+]
+
+[[package]]
+name = "rand_chacha"
+version = "0.9.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "d3022b5f1df60f26e1ffddd6c66e8aa15de382ae63b3a0c1bfc0e4d3e3f325cb"
+dependencies = [
+ "ppv-lite86",
+ "rand_core 0.9.3",
 ]
 
 [[package]]
@@ -4381,6 +4441,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "ec0be4795e2f6a28069bec0b5ff3e2ac9bafc99e6a9a7dc3547996c5c816922c"
 dependencies = [
  "getrandom 0.2.15",
+]
+
+[[package]]
+name = "rand_core"
+version = "0.9.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "99d9a13982dcf210057a8a78572b2217b667c3beacbf3a0d8b454f6f82837d38"
+dependencies = [
+ "getrandom 0.3.3",
 ]
 
 [[package]]
@@ -5455,7 +5524,7 @@ name = "swc_cached"
 version = "0.3.18"
 source = "git+https://github.com/encoredev/swc?branch=node-resolve-exports#2b917407c2dca79a9dc327adcf6607f893decb2f"
 dependencies = [
- "ahash",
+ "ahash 0.8.11",
  "anyhow",
  "dashmap",
  "once_cell",
@@ -6001,8 +6070,8 @@ dependencies = [
 
 [[package]]
 name = "tokio-postgres"
-version = "0.7.10"
-source = "git+https://github.com/encoredev/rust-postgres?branch=encore-patches#eaf1bb1158e007b0ad873794a58284d5e172a1bd"
+version = "0.7.13"
+source = "git+https://github.com/encoredev/rust-postgres?branch=encore-patches-sync#e71577eea1d14769a3021b6dd214448e3de3ffb6"
 dependencies = [
  "async-trait",
  "byteorder",
@@ -6018,7 +6087,7 @@ dependencies = [
  "pin-project-lite",
  "postgres-protocol",
  "postgres-types",
- "rand 0.8.5",
+ "rand 0.9.1",
  "socket2",
  "tokio",
  "tokio-util",
@@ -6656,6 +6725,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9c8d87e72b64a3b4db28d11ce29237c246188f4f51057d65a7eab63b7987e423"
 
 [[package]]
+name = "wasi"
+version = "0.14.2+wasi-0.2.4"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "9683f9a5a998d873c0d21fcbe3c083009670149a8fab228644b8bd36b2c48cb3"
+dependencies = [
+ "wit-bindgen-rt",
+]
+
+[[package]]
 name = "wasite"
 version = "0.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7022,6 +7100,15 @@ checksum = "524e57b2c537c0f9b1e69f1965311ec12182b4122e45035b1508cd24d2adadb1"
 dependencies = [
  "cfg-if",
  "windows-sys 0.48.0",
+]
+
+[[package]]
+name = "wit-bindgen-rt"
+version = "0.39.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "6f42320e61fe2cfd34354ecb597f86f413484a798ba44a8ca1165c58d42da6c1"
+dependencies = [
+ "bitflags 2.6.0",
 ]
 
 [[package]]
