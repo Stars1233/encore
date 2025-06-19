@@ -130,8 +130,8 @@ func (d *Daemon) init(ctx context.Context) {
 	d.DBProxy = d.listenTCPRetry("dbproxy", option.None[string](), 9500)
 	d.Runtime = d.listenTCPRetry("runtime", option.None[string](), 9600)
 	d.Debug = d.listenTCPRetry("debug", option.None[string](), 9700)
-	d.ObjectStorage = d.listenTCPRetry("objectstorage", option.None[string](), 9800)
-	d.MCP = d.listenTCPRetry("mcp", option.None[string](), 9900)
+	d.ObjectStorage = d.listenTCPRetry("objectstorage", env.EncoreObjectStorageListAddr(), 9800)
+	d.MCP = d.listenTCPRetry("mcp", env.EncoreMCPSSEListenAddr(), 9900)
 	d.EncoreDB = d.openDB()
 
 	d.Apps = apps.NewManager(d.EncoreDB)
@@ -151,12 +151,12 @@ func (d *Daemon) init(ctx context.Context) {
 	}
 
 	d.NS = namespace.NewManager(d.EncoreDB)
-	d.ClusterMgr = sqldb.NewClusterManager(sqldbDriver, d.Apps, d.NS)
+	d.Secret = secret.New()
+	d.ClusterMgr = sqldb.NewClusterManager(sqldbDriver, d.Apps, d.NS, d.Secret)
 	d.ObjectsMgr = objects.NewClusterManager(d.NS)
 	d.PublicBuckets = objects.NewPublicBucketServer("http://"+d.ObjectStorage.ClientAddr(), d.ObjectsMgr.PersistentStoreFallback)
 
 	d.Trace = sqlite.New(ctx, d.EncoreDB)
-	d.Secret = secret.New()
 	d.RunMgr = &run.Manager{
 		RuntimePort:   d.Runtime.Port(),
 		DBProxyPort:   d.DBProxy.Port(),
