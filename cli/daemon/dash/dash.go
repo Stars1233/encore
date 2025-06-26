@@ -818,7 +818,7 @@ func buildDbMigrationStatus(ctx context.Context, appMeta *meta.Data, cluster *sq
 	for _, dbMeta := range appMeta.SqlDatabases {
 		db, ok := cluster.GetDB(dbMeta.Name)
 		if !ok {
-			log.Error().Msgf("failed to get database %s", dbMeta.Name)
+			// Remote database migration status are not supported yet
 			continue
 		}
 		appliedVersions, err := db.ListAppliedMigrations(ctx)
